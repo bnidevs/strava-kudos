@@ -24,7 +24,7 @@ class KudosGiver:
         self.web_feed_entry_pattern = '[data-testid=web-feed-entry]'
 
         self.p = sync_playwright().start()
-        self.browser = self.p.firefox.launch(headless=True) # does not work in chrome
+        self.browser = self.p.firefox.launch(headless=False) # does not work in chrome
         self.context = self.browser.new_context()
         self.page = self.context.new_page()
 
@@ -193,4 +193,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
