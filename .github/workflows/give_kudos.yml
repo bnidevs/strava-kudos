@@ -20,9 +20,10 @@ jobs:
           cache: 'pip'
       - run: pip install -r requirements.txt
       - run: playwright install
-      - run: playwright install-deps
+      - run: apt-get install libdbus-glib-1-2
       - run: python give_kudos.py
         
+
 
 
 
