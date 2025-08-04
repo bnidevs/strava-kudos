@@ -16,13 +16,14 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
-          python-version: '3.12'
+          python-version: '3.9.22'
           cache: 'pip'
       - run: pip install -r requirements.txt
       - run: playwright install
       - run: sudo apt-get install -y libdbus-glib-1-2
       - run: python give_kudos.py
         
+
 
 
 
