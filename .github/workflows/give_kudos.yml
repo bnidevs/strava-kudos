@@ -10,15 +10,16 @@ env:
   STRAVA_PASSWORD: ${{ secrets.STRAVA_PASSWORD }}
 jobs:
   run-kudos-cron:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v3 
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
-          python-version: '3.9.10'
+          python-version: '3.9.22'
           cache: 'pip'
       - run: pip install -r requirements.txt
       - run: playwright install
       - run: python give_kudos.py
         
+
