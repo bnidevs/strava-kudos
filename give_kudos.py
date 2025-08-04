@@ -23,9 +23,10 @@ class KudosGiver:
         self.num_entries = 100
         self.web_feed_entry_pattern = '[data-testid=web-feed-entry]'
 
-        p = sync_playwright().start()
-        self.browser = p.firefox.launch() # does not work in chrome
-        self.page = self.browser.new_page()
+        self.p = sync_playwright().start()
+        self.browser = self.p.firefox.launch(headless=True) # does not work in chrome
+        self.context = self.browser.new_context()
+        self.page = self.context.new_page()
 
 
     def email_login(self):
@@ -174,14 +175,22 @@ class KudosGiver:
             pass
         web_feed_entry_locator = self.page.locator(self.web_feed_entry_pattern)
         self.locate_kudos_buttons_and_maybe_give_kudos(web_feed_entry_locator=web_feed_entry_locator)
+        #self.browser.close()
+
+    def close(self):
         self.browser.close()
+        self.p.stop()
 
 
 def main():
     kg = KudosGiver()
-    kg.email_login()
-    kg.give_kudos()
+    try:
+        kg.email_login()
+        kg.give_kudos()
+    finally:
+        kg.close()
 
 
 if __name__ == "__main__":
     main()
+
